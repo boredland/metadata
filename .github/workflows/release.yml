@@ -2,6 +2,7 @@ name: Release
 on:
   push:
     branches:
+      - main
       - master
       - next
       - beta
@@ -16,8 +17,10 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: npm ci
-      - run: npx semantic-release
+      - run: yarn
+      - run: yarn test
+      - run: yarn build
+      - run: yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.PROBOTBOT_NPM_TOKEN }}
