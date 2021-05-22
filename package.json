@@ -1,31 +1,45 @@
 {
-  "name": "probot-metadata",
-  "version": "1.1.0",
-  "description": "A Probot extension to store metadata on Issues and Pull Requests",
-  "main": "index.js",
+  "name": "@boredland/probot-metadata",
+  "version": "3.0.0",
+  "description": "A Probot extension to store metadata on probot contexts",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "jest && standard"
+    "build": "ncc build src/index.ts --source-map -o dist --license ./LICENSE",
+    "release": "semantic-release",
+    "test": "jest",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
-  "repository": "github:probot/metadata",
+  "release": {
+    "branches": [
+      "main",
+      "master",
+      "next",
+      "beta",
+      "*.x"
+    ]
+  },
+  "repository": "github:boredland/metadata",
   "keywords": [
     "probot"
   ],
   "author": "Brandon Keepers",
   "license": "ISC",
   "devDependencies": {
-    "jest": "^23.6.0",
-    "nock": "^13.0.4",
-    "probot": "^10.9.0",
-    "semantic-release": "^17.1.2",
-    "standard": "^10.0.3"
+    "@types/jest": "^26.0.23",
+    "@typescript-eslint/eslint-plugin": "^4.24.0",
+    "@typescript-eslint/parser": "^4.24.0",
+    "@vercel/ncc": "^0.28.5",
+    "eslint": "^7.27.0",
+    "jest": "^26.6.3",
+    "nock": "^13.0.11",
+    "probot": "^11.3.0",
+    "semantic-release": "^17.4.3",
+    "ts-jest": "^26.5.6",
+    "typescript": "^4.2.4"
   },
   "peerDependencies": {
+    "@octokit/webhooks": "*",
+    "pino": "*",
     "probot": ">=10"
-  },
-  "standard": {
-    "env": "jest"
-  },
-  "jest": {
-    "testEnvironment": "node"
   }
 }
