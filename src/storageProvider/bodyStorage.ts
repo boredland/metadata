@@ -9,7 +9,7 @@ export class BodyStorage<T extends StorageType> implements StorageProvider<T> {
   constructor(
     private context: Context,
     private issue: {
-      issue_number: any;
+      issue_number: number;
       owner: string;
       repo: string;
       body?: string;
