@@ -7,7 +7,7 @@ import { WebhookEvent } from "@octokit/webhooks";
 
 nock.disableNetConnect();
 
-describe("metadata (legacy)", () => {
+describe("bodyStorage", () => {
   let context: Context;
   let event: WebhookEvent;
 
@@ -89,14 +89,14 @@ describe("metadata (legacy)", () => {
       test("sets an object", async () => {
         const mock = issueGetPatchMock(
           original,
-          `original post\n\n<!-- probot = {"1":{"key":"value"}} -->`
+          `original post\n\n<!-- probot = {"1":{"hello":{"world":"value"}}} -->`
         );
 
-        const metadata = new Metadata<{ key: string }>(
+        const metadata = new Metadata<{ hello: { world: string } }>(
           new BodyStorage(context)
         );
 
-        await metadata.set({ key: "value" });
+        await metadata.set({ hello: { world: "value " } });
 
         expect(mock.activeMocks()).toStrictEqual([]);
       });

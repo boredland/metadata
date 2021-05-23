@@ -6,7 +6,7 @@ export type StorageType = Record<string, unknown>;
 export interface StorageProvider<T extends StorageType = StorageType> {
   get(key?: keyof T): Promise<T[keyof T] | Partial<T> | undefined>;
   // sets and merges the object l=1
-  set: (value: Partial<T>) => Promise<Partial<T>>;
+  set: (value: Partial<T>) => Promise<Partial<T> | undefined>;
 }
 
 export type Issue = {
@@ -26,7 +26,6 @@ export class Metadata<T extends StorageType = StorageType> {
   get(): Promise<Partial<T>>;
   // returns just the requested key if set
   get(key: keyof T): Promise<T[keyof T]>;
-
   public get(key?: keyof T): Promise<T[keyof T] | Partial<T> | undefined> {
     return this.storageProvider.get(key);
   }
@@ -34,7 +33,7 @@ export class Metadata<T extends StorageType = StorageType> {
   public set(
     args: { key: keyof T; value: T[keyof T] } | keyof T | Partial<T>,
     value?: T[keyof T]
-  ): Promise<Partial<T>> {
+  ): Promise<Partial<T> | undefined> {
     // key, value input
     if (typeof args === "string") {
       if (!value) throw new Error("no value provided!");
