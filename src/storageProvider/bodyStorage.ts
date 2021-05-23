@@ -27,8 +27,16 @@ export class BodyStorage<T extends StorageType> implements StorageProvider<T> {
     );
   }
 
-  async set(value: Partial<T>): Promise<Partial<T>> {
-    let body = await this.body();
+  private parseBody(body?: string | null): {
+    body: string;
+    data: Record<string, Partial<T>>;
+  } {
+    if (!body)
+      return {
+        data: {},
+        body: "",
+      };
+
     let data: Record<string, Partial<T>> = {};
 
     body = body.replace(this.regex, (_, json) => {
@@ -36,13 +44,22 @@ export class BodyStorage<T extends StorageType> implements StorageProvider<T> {
       return "";
     });
 
+    return { body, data };
+  }
+
+  async set(value: Partial<T>): Promise<Partial<T>> {
+    const { body, data } = this.parseBody(await this.body());
+
     data[this.prefix] = { ...data[this.prefix], ...value };
 
-    body = `${body}\n\n<!-- probot = ${JSON.stringify(data)} -->`;
+    const payload = `${body}\n\n<!-- probot = ${JSON.stringify(data)} -->`;
 
-    await this.github.issues.update({ ...this.issue, body });
+    const res = await this.github.issues.update({
+      ...this.issue,
+      body: payload,
+    });
 
-    return data[this.prefix];
+    return this.parseBody(res.data.body).data[this.prefix];
   }
 
   async get(key?: keyof T): Promise<T[keyof T] | Partial<T> | undefined> {

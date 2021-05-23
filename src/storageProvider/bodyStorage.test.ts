@@ -7,7 +7,7 @@ import { WebhookEvent } from "@octokit/webhooks";
 
 nock.disableNetConnect();
 
-describe("metadata (legacy)", () => {
+describe("bodyStorage", () => {
   let context: Context;
   let event: WebhookEvent;
 
@@ -55,217 +55,10 @@ describe("metadata (legacy)", () => {
           return true;
         }
       )
-      .reply(204);
+      .reply(200, (_uri, body) => {
+        return body;
+      });
   };
-
-  describe("on issue without metdata", () => {
-    describe("set", () => {
-      const original = "original post";
-
-      test("sets a key", async () => {
-        const mock = issueGetPatchMock(
-          original,
-          `original post\n\n<!-- probot = {"1":{"nicely":"typed string"}} -->`
-        );
-
-        const metadata = new Metadata<{ nicely: string }>(
-          new BodyStorage(context)
-        );
-
-        await metadata.set({ nicely: "typed string" });
-        expect(mock.activeMocks()).toStrictEqual([]);
-      });
-
-      test("sets a key using the legacy api", async () => {
-        const mock = issueGetPatchMock(
-          original,
-          `original post\n\n<!-- probot = {"1":{"nicely":"typed string"}} -->`
-        );
-
-        await metadata(context).set("nicely", "typed string");
-        expect(mock.activeMocks()).toStrictEqual([]);
-      });
-
-      test("sets an object", async () => {
-        const mock = issueGetPatchMock(
-          original,
-          `original post\n\n<!-- probot = {"1":{"key":"value"}} -->`
-        );
-
-        const metadata = new Metadata<{ key: string }>(
-          new BodyStorage(context)
-        );
-
-        await metadata.set({ key: "value" });
-
-        expect(mock.activeMocks()).toStrictEqual([]);
-      });
-    });
-
-    describe("get", () => {
-      test("returns undefined", async () => {
-        const mock = issueGetMock("original post");
-
-        const metadata = new Metadata<{ key: string }>(
-          new BodyStorage(context)
-        );
-
-        expect(await metadata.get("key")).toEqual(undefined);
-
-        expect(mock.activeMocks()).toStrictEqual([]);
-      });
-
-      test("returns undefined without key", async () => {
-        const mock = issueGetMock("original post");
-
-        const metadata = new Metadata<{ key: string }>(
-          new BodyStorage(context)
-        );
-
-        expect(await metadata.get()).toEqual(undefined);
-
-        expect(mock.activeMocks()).toStrictEqual([]);
-      });
-    });
-  });
-
-  describe("on issue with existing metadata", () => {
-    describe("set", () => {
-      test("sets new metadata", async () => {
-        const mock = issueGetPatchMock(
-          `original post\n\n<!-- probot = {"1":{"key":"value"}} -->`,
-          `original post\n\n<!-- probot = {"1":{"key":"value","hello":"world"}} -->`
-        );
-
-        const metadata = new Metadata<{ hello: string; key: string }>(
-          new BodyStorage(context)
-        );
-
-        await metadata.set("hello", "world");
-
-        expect(mock.activeMocks()).toStrictEqual([]);
-      });
-
-      test("overwrites exiting metadata", async () => {
-        const mock = issueGetPatchMock(
-          `original post\n\n<!-- probot = {"1":{"key":"value"}} -->`,
-          `original post\n\n<!-- probot = {"1":{"key":"new value"}} -->`
-        );
-
-        const metadata = new Metadata<{ key: string }>(
-          new BodyStorage(context)
-        );
-
-        await metadata.set("key", "new value");
-        expect(mock.activeMocks()).toStrictEqual([]);
-      });
-
-      test("merges object with existing metadata", async () => {
-        const mock = issueGetPatchMock(
-          `original post\n\n<!-- probot = {"1":{"key":"value"}} -->`,
-          `original post\n\n<!-- probot = {"1":{"key":"value","hello":"world"}} -->`
-        );
-
-        const metadata = new Metadata<{ hello: string }>(
-          new BodyStorage(context)
-        );
-
-        await metadata.set({ hello: "world" });
-        expect(mock.activeMocks()).toStrictEqual([]);
-      });
-    });
-
-    describe("get", () => {
-      test("returns value", async () => {
-        const mock = issueGetMock(
-          `original post\n\n<!-- probot = {"1":{"key":"value"}} -->`
-        );
-
-        const metadata = new Metadata<{ key: string }>(
-          new BodyStorage(context)
-        );
-
-        const object = await metadata.get();
-
-        expect(object.key).toEqual("value");
-
-        expect(mock.activeMocks()).toStrictEqual([]);
-      });
-
-      test("returns undefined for unknown key", async () => {
-        const mock = issueGetMock(
-          `original post\n\n<!-- probot = {"1":{"key":"value"}} -->`
-        );
-
-        const metadata = new Metadata<{ unknown: string }>(
-          new BodyStorage(context)
-        );
-
-        expect(await metadata.get("unknown")).toEqual(undefined);
-        expect(mock.activeMocks()).toStrictEqual([]);
-      });
-    });
-  });
-
-  describe("on issue with metadata for a different installation", () => {
-    describe("set", () => {
-      test("sets new metadata", async () => {
-        const mock = issueGetPatchMock(
-          `original post\n\n<!-- probot = {"2":{"key":"value"}} -->`,
-          `original post\n\n<!-- probot = {"1":{"hello":"world"},"2":{"key":"value"}} -->`
-        );
-
-        const metadata = new Metadata<{ hello: string }>(
-          new BodyStorage(context)
-        );
-
-        await metadata.set("hello", "world");
-        expect(mock.activeMocks()).toStrictEqual([]);
-      });
-
-      test("sets an object", async () => {
-        const mock = issueGetPatchMock(
-          `original post\n\n<!-- probot = {"2":{"key":"value"}} -->`,
-          `original post\n\n<!-- probot = {"1":{"hello":{"world":"lulu"}},"2":{"key":"value"}} -->`
-        );
-
-        const metadata = new Metadata<{ hello: { world: string } }>(
-          new BodyStorage(context)
-        );
-        await metadata.set({ hello: { world: "lulu" } });
-        expect(mock.activeMocks()).toStrictEqual([]);
-      });
-    });
-
-    describe("get", () => {
-      test("returns undefined for unknown key", async () => {
-        const mock = issueGetMock(
-          'original post\n\n<!-- probot = {"2":{"key":"value"}} -->'
-        );
-
-        const metadata = new Metadata<{ unknown: string }>(
-          new BodyStorage(context)
-        );
-
-        expect(await metadata.get("unknown")).toEqual(undefined);
-
-        expect(mock.activeMocks()).toStrictEqual([]);
-      });
-
-      test("returns undefined without a key", async () => {
-        const mock = issueGetMock(
-          'original post\n\n<!-- probot = {"2":{"key":"value"}} -->'
-        );
-
-        const metadata = new Metadata<{ unknown: string }>(
-          new BodyStorage(context)
-        );
-
-        expect(await metadata.get()).toEqual(undefined);
-        expect(mock.activeMocks()).toStrictEqual([]);
-      });
-    });
-  });
 
   describe("on an issue with no content in the body", () => {
     describe("set", () => {
@@ -350,7 +143,9 @@ describe("metadata (legacy)", () => {
             );
             return true;
           })
-          .reply(204);
+          .reply(200, (_uri, body) => {
+            return body;
+          });
 
         const metadata = new Metadata<{ foo: string }>(
           new BodyStorage(context, issue)
