@@ -6542,10 +6542,10 @@ pretty-format@^26.0.0, pretty-format@^26.6.2:
     ansi-styles "^4.0.0"
     react-is "^17.0.1"
 
-probot@^11.3.0:
-  version "11.3.0"
-  resolved "https://registry.yarnpkg.com/probot/-/probot-11.3.0.tgz#f48bc3b07b96d104dba076976e581db3806c9216"
-  integrity sha512-Af+CJJ9MR982HnMRThzOUnp9QKKjxmpkzi5y0mHeAE6Rk7PXwuFcfIZlT1+L5CjLYkEhcTJhucrgzGW4QUJ8Pw==
+probot@^11.3.2:
+  version "11.3.2"
+  resolved "https://registry.yarnpkg.com/probot/-/probot-11.3.2.tgz#1260d63b645225105974056cc7a38228811d564b"
+  integrity sha512-JN+jzjkVAHFj6pBQgvO27vjW9IwA9QOtSLNxxak4rnalNSo09u1Srr01TlqYoalbsNiwbVx2tXvBSDZZLkXCcw==
   dependencies:
     "@octokit/core" "^3.2.4"
     "@octokit/plugin-enterprise-compatibility" "^1.2.8"
