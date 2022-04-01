@@ -871,14 +871,25 @@
   dependencies:
     "@octokit/openapi-types" "^7.2.0"
 
-"@octokit/webhooks@7.21.0":
-  version "7.21.0"
-  resolved "https://registry.yarnpkg.com/@octokit/webhooks/-/webhooks-7.21.0.tgz#2aee3404aa311740a5f4ea37b070268752e21b02"
-  integrity sha512-Mj7Pa6JZgSjfzQfYF3Bf5KpyhzEBv4kHbj2EjCB/vMQiZCiiW30j5rS6t/d0ZN0FBrlSOuJIT+YU8IJt30VyWA==
+"@octokit/webhooks-methods@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@octokit/webhooks-methods/-/webhooks-methods-2.0.0.tgz#1108b9ea661ca6c81e4a8bfa63a09eb27d5bc2db"
+  integrity sha512-35cfQ4YWlnZnmZKmIxlGPUPLtbkF8lr/A/1Sk1eC0ddLMwQN06dOuLc+dI3YLQS+T+MoNt3DIQ0NynwgKPilig==
+
+"@octokit/webhooks-types@5.5.1":
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/@octokit/webhooks-types/-/webhooks-types-5.5.1.tgz#3ab94e890bee827302c6312e80497426d6627cbf"
+  integrity sha512-FaBbqZS2e4fCdQvUqeBKpJJOVsRxGcrf0NA91WBXz9GP5/4xgQgdjpbzAcDOSfESBYDYD78HeI5VeihfCW28Ew==
+
+"@octokit/webhooks@^9.8.4":
+  version "9.23.0"
+  resolved "https://registry.yarnpkg.com/@octokit/webhooks/-/webhooks-9.23.0.tgz#16fc24284afdf3e119d32928dd3f8b338890e56c"
+  integrity sha512-4+imw+CajrKpafaE9oLCtXyU3ZAcCLwuoeZ3XmFruQZCEcBBJYE/juSFvU3x1HkFFeKwsUyr+nRikRwiK/VSmA==
   dependencies:
     "@octokit/request-error" "^2.0.2"
+    "@octokit/webhooks-methods" "^2.0.0"
+    "@octokit/webhooks-types" "5.5.1"
     aggregate-error "^3.1.0"
-    debug "^4.0.0"
 
 "@probot/get-private-key@^1.1.0":
   version "1.1.0"
@@ -1165,10 +1176,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/ioredis@^4.17.8":
-  version "4.26.4"
-  resolved "https://registry.yarnpkg.com/@types/ioredis/-/ioredis-4.26.4.tgz#a2b1ed51ddd2c707d7eaac5017cc34a0fe51558a"
-  integrity sha512-QFbjNq7EnOGw6d1gZZt2h26OFXjx7z+eqEnbCHSrDI1OOLEgOHMKdtIajJbuCr9uO+X9kQQRe7Lz6uxqxl5XKg==
+"@types/ioredis@^4.27.1":
+  version "4.28.10"
+  resolved "https://registry.yarnpkg.com/@types/ioredis/-/ioredis-4.28.10.tgz#40ceb157a4141088d1394bb87c98ed09a75a06ff"
+  integrity sha512-69LyhUgrXdgcNDv7ogs1qXZomnfOEnSmrmMFqKgt1XMJxmoOSG/u3wYy13yACIfKuMJ8IhKgHafDO3sx19zVQQ==
   dependencies:
     "@types/node" "*"
 
@@ -3215,6 +3226,15 @@ expect@^26.6.2:
     jest-message-util "^26.6.2"
     jest-regex-util "^26.0.0"
 
+express-handlebars@^6.0.3:
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/express-handlebars/-/express-handlebars-6.0.3.tgz#ed215adfcc57f828c306b100ad4da4cf6014728d"
+  integrity sha512-cG6/CeriAhAYKC9+VivXtj41+HNDB6xnigwzcXv/m9BBtijR2Yg5I5VWsK6nPc1+E06FIS23nGfr2COUv8sG3A==
+  dependencies:
+    glob "^7.2.0"
+    graceful-fs "^4.2.9"
+    handlebars "^4.7.7"
+
 express@^4.17.1:
   version "4.17.1"
   resolved "https://registry.yarnpkg.com/express/-/express-4.17.1.tgz#4491fc38605cf51f8629d39c2b5d026f98a4c134"
@@ -3477,11 +3497,6 @@ for-in@^1.0.2:
   resolved "https://registry.yarnpkg.com/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
   integrity sha1-gQaNKVqBQuwKxybG4iAMMPttXoA=
 
-foreachasync@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/foreachasync/-/foreachasync-3.0.0.tgz#5502987dc8714be3392097f32e0071c9dee07cf6"
-  integrity sha1-VQKYfchxS+M5IJfzLgBxyd7gfPY=
-
 forever-agent@~0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/forever-agent/-/forever-agent-0.6.1.tgz#fbc71f0c41adeb37f96c577ad1ed42d8fdacca91"
@@ -3657,6 +3672,18 @@ glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4, glob@^7.1.6, glob@^7.1.7:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
+glob@^7.2.0:
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/glob/-/glob-7.2.0.tgz#d15535af7732e02e948f4c41628bd910293f6023"
+  integrity sha512-lmLf6gtyrPq8tTjSmrO94wBeQbFR3HbLHbuyD69wuyQkImp2hWqMGB47OX65FBkPffO641IP9jWa1z4ivqG26Q==
+  dependencies:
+    fs.realpath "^1.0.0"
+    inflight "^1.0.4"
+    inherits "2"
+    minimatch "^3.0.4"
+    once "^1.3.0"
+    path-is-absolute "^1.0.0"
+
 global-dirs@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/global-dirs/-/global-dirs-3.0.0.tgz#70a76fe84ea315ab37b1f5576cbde7d48ef72686"
@@ -3717,12 +3744,17 @@ graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0,
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.6.tgz#ff040b2b0853b23c3d31027523706f1885d76bee"
   integrity sha512-nTnJ528pbqxYanhpDYsi4Rd8MAeaBA67+RZ10CM1m3bTAVFEDcd5AuA4a6W5YkGZ1iNXHzZz8T6TBKLeBuNriQ==
 
+graceful-fs@^4.2.9:
+  version "4.2.9"
+  resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.9.tgz#041b05df45755e587a24942279b9d113146e1c96"
+  integrity sha512-NtNxqUcXgpW2iMrfqSfR73Glt39K+BLwWsPs94yR63v45T0Wbej7eRmL5cWfwEgqXnmjQp3zaJTshdRW/qC2ZQ==
+
 growly@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/growly/-/growly-1.3.0.tgz#f10748cbe76af964b7c96c93c6bcc28af120c081"
   integrity sha1-8QdIy+dq+WS3yWyTxrzCivEgwIE=
 
-handlebars@4.7.7, handlebars@^4.7.6:
+handlebars@^4.7.6, handlebars@^4.7.7:
   version "4.7.7"
   resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.7.7.tgz#9ce33416aad02dbd6c8fafa8240d5d98004945a1"
   integrity sha512-aAcXm5OAfE/8IXkcZvCepKU3VzW1/39Fb5ZuqMtgI/hT8X2YgoMvBY5dLhq/cpOvw7Lk1nK/UF71aLG/ZnVYRA==
@@ -3819,14 +3851,6 @@ has@^1.0.3:
   integrity sha512-f2dvO0VU6Oej7RkWJGrehjbzMAjFp5/VKPp5tTpWIV4JHHZK1/BxbFRtf/siA2SWTe09caDmVtYYzWEIbBS4zw==
   dependencies:
     function-bind "^1.1.1"
-
-hbs@^4.1.1:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/hbs/-/hbs-4.1.2.tgz#8d8c07b50d985b580a3d6eae9bf52393a47b9aaf"
-  integrity sha512-WfBnQbozbdiTLjJu6P6Wturgvy0FN8xtRmIjmP0ebX9OGQrt+2S6UC7xX0IebHTCS1sXe20zfTzQ7yhjrEvrfQ==
-  dependencies:
-    handlebars "4.7.7"
-    walk "2.3.14"
 
 hook-std@^2.0.0:
   version "2.0.0"
@@ -4051,16 +4075,17 @@ into-stream@^6.0.0:
     from2 "^2.3.0"
     p-is-promise "^3.0.0"
 
-ioredis@^4.19.2:
-  version "4.27.3"
-  resolved "https://registry.yarnpkg.com/ioredis/-/ioredis-4.27.3.tgz#4a020c9056bf4e016c476910fb59620a0d899654"
-  integrity sha512-eAirtUIljFkHJwuKQhbGajVrdCUMNKRuOrhzRFeYZRvXnLs4757Oss1S8aiheB4NSO1RsLeG+2RUjY/0/XiSig==
+ioredis@^4.27.8:
+  version "4.28.5"
+  resolved "https://registry.yarnpkg.com/ioredis/-/ioredis-4.28.5.tgz#5c149e6a8d76a7f8fa8a504ffc85b7d5b6797f9f"
+  integrity sha512-3GYo0GJtLqgNXj4YhrisLaNNvWSNwSS2wS4OELGfGxH8I69+XfNdnmV1AyN+ZqMh0i7eX+SWjrwFKDBDgfBC1A==
   dependencies:
     cluster-key-slot "^1.1.0"
     debug "^4.3.1"
     denque "^1.1.0"
     lodash.defaults "^4.2.0"
     lodash.flatten "^4.4.0"
+    lodash.isarguments "^3.1.0"
     p-map "^2.1.0"
     redis-commands "1.7.0"
     redis-errors "^1.2.0"
@@ -5285,6 +5310,11 @@ lodash.includes@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/lodash.includes/-/lodash.includes-4.3.0.tgz#60bb98a87cb923c68ca1e51325483314849f553f"
   integrity sha1-YLuYqHy5I8aMoeUTJUgzFISfVT8=
+
+lodash.isarguments@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/lodash.isarguments/-/lodash.isarguments-3.1.0.tgz#2f573d85c6a24289ff00663b491c1d338ff3458a"
+  integrity sha1-L1c9hcaiQon/AGY7SRwdM4/zRYo=
 
 lodash.isboolean@^3.0.3:
   version "3.0.3"
@@ -6542,10 +6572,10 @@ pretty-format@^26.0.0, pretty-format@^26.6.2:
     ansi-styles "^4.0.0"
     react-is "^17.0.1"
 
-probot@^11.3.0:
-  version "11.3.0"
-  resolved "https://registry.yarnpkg.com/probot/-/probot-11.3.0.tgz#f48bc3b07b96d104dba076976e581db3806c9216"
-  integrity sha512-Af+CJJ9MR982HnMRThzOUnp9QKKjxmpkzi5y0mHeAE6Rk7PXwuFcfIZlT1+L5CjLYkEhcTJhucrgzGW4QUJ8Pw==
+probot@^12.2.2:
+  version "12.2.2"
+  resolved "https://registry.yarnpkg.com/probot/-/probot-12.2.2.tgz#cfbb61c233ed5656fa951c6cc2fe67d1a508a92b"
+  integrity sha512-I2WU3KzLdF6O5GZIAMzcf/FJ/GTKmITl2Si3ccoNKB0dhR0038787kamrDrGBWKkp9fBZrkSKiLRNOePMFYYgA==
   dependencies:
     "@octokit/core" "^3.2.4"
     "@octokit/plugin-enterprise-compatibility" "^1.2.8"
@@ -6554,12 +6584,12 @@ probot@^11.3.0:
     "@octokit/plugin-retry" "^3.0.6"
     "@octokit/plugin-throttling" "^3.3.4"
     "@octokit/types" "^6.1.1"
-    "@octokit/webhooks" "7.21.0"
+    "@octokit/webhooks" "^9.8.4"
     "@probot/get-private-key" "^1.1.0"
     "@probot/octokit-plugin-config" "^1.0.0"
     "@probot/pino" "^2.2.0"
     "@types/express" "^4.17.9"
-    "@types/ioredis" "^4.17.8"
+    "@types/ioredis" "^4.27.1"
     "@types/pino" "^6.3.4"
     "@types/pino-http" "^5.0.6"
     "@types/update-notifier" "^5.0.0"
@@ -6569,8 +6599,8 @@ probot@^11.3.0:
     dotenv "^8.2.0"
     eventsource "^1.0.7"
     express "^4.17.1"
-    hbs "^4.1.1"
-    ioredis "^4.19.2"
+    express-handlebars "^6.0.3"
+    ioredis "^4.27.8"
     js-yaml "^3.14.1"
     lru-cache "^6.0.0"
     octokit-auth-probot "^1.2.2"
@@ -8217,13 +8247,6 @@ walk-up-path@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/walk-up-path/-/walk-up-path-1.0.0.tgz#d4745e893dd5fd0dbb58dd0a4c6a33d9c9fec53e"
   integrity sha512-hwj/qMDUEjCU5h0xr90KGCf0tg0/LgJbmOWgrWKYlcJZM7XvquvUJZ0G/HMGr7F7OQMOUuPHWP9JpriinkAlkg==
-
-walk@2.3.14:
-  version "2.3.14"
-  resolved "https://registry.yarnpkg.com/walk/-/walk-2.3.14.tgz#60ec8631cfd23276ae1e7363ce11d626452e1ef3"
-  integrity sha512-5skcWAUmySj6hkBdH6B6+3ddMjVQYH5Qy9QGbPmN8kVmLteXk+yVXg+yfk1nbX30EYakahLrr8iPcCxJQSCBeg==
-  dependencies:
-    foreachasync "^3.0.0"
 
 walker@^1.0.7, walker@~1.0.5:
   version "1.0.7"
